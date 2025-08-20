@@ -1,6 +1,7 @@
 package kr.hs.study.memberPrj.entity;
 
 import jakarta.persistence.*;
+import kr.hs.study.memberPrj.dto.memDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,5 +26,16 @@ public class memEntity {
 
     @Column(length = 10, unique = true)
     private String name;
+
+    //entity -> dto 변환
+    public static memDTO toDTO(memEntity e){
+        memDTO dto = memDTO.builder()
+                .id(e.getId())
+                .email(e.getEmail())
+                .pass(e.getPass())
+                .name(e.getName())
+                .build();
+        return dto;
+    }
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -34,7 +35,7 @@ public class testController {
     @PostMapping("/signup")
     public String signup(memDTO dto){
         service.signup(dto);
-        return "signup";
+        return "home";
     }
 
     @PostMapping("/login")
@@ -54,5 +55,13 @@ public class testController {
         // 로그인 실패
         model.addAttribute("error", "이메일 또는 비밀번호가 올바르지 않습니다.");
         return "login";
+    }
+
+    @GetMapping("/list")
+    public String list(Model model){
+        List<memDTO> dto = service.findAll();
+        model.addAttribute("list", dto);
+        System.out.println("dto : " + dto.size());
+        return "list";
     }
 }
